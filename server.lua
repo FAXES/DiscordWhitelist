@@ -23,7 +23,7 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
 
     local allowed = false
     if identifierDiscord then
-        if exports.discord_perms:IsRolePresent(src, "Member") then
+        if exports.discord_perms:IsRolePresent(src, roleNeeded) then
             deferrals.done()
             allowed = true
         else
