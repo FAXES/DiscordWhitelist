@@ -19,6 +19,8 @@ Hate updating those ACE Permission white-lists? Well just use Discord! Now you c
 **Installation**
 The installation page has moved to a better location - https://docs.faxes.zone/docs/discord-whitelist-setup/
 
+Installation Video: https://youtu.be/SArIo8nUFG4
+
 <hr>
 
 **Credits**
