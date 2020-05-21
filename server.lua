@@ -29,9 +29,11 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
     if identifierDiscord then
         usersRoles = exports.discord_perms:GetRoles(src)
         local function has_value(table, val)
-            for index, value in ipairs(table) do
-                if value == val then
-                    return true
+            if table then
+                for index, value in ipairs(table) do
+                    if value == val then
+                        return true
+                    end
                 end
             end
             return false
@@ -49,6 +51,6 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
             end
         end
     else
-        deferrals.done("Discord was not detected. Please make sure Discord is running and installed. If it is make sure it's not Discord PTB. See the below link for a debugging process. docs.faxes.zone/docs/debugging-discord")
+        deferrals.done("Discord was not detected. Please make sure Discord is running and installed. See the below link for a debugging process - docs.faxes.zone/docs/debugging-discord")
     end
 end)
