@@ -6,7 +6,7 @@
 --- Config ---
 notWhitelistedMessage = "You are not whitelisted for this server." -- Message displayed when they are not whitelist with the role
 
-whitelistRoles = { -- Role nickname(s) needed to pass the whitelist
+whitelistRoles = { -- Role IDs needed to pass the whitelist
     "DISCORD_ROLE_ID",
     "DISCORD_ROLE_ID",
     "DISCORD_ROLE_ID",
@@ -18,7 +18,6 @@ AddEventHandler("playerConnecting", function(name, setCallback, deferrals)
     local src = source
     local passAuth = false
     deferrals.defer()
-    deferrals.update("Checking Permissions...")
 
     for k, v in ipairs(GetPlayerIdentifiers(src)) do
         if string.sub(v, 1, string.len("discord:")) == "discord:" then
