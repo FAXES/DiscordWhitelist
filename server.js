@@ -4,11 +4,17 @@
 
 /// Config Area ///
 
-var whitelistRoles = [
+var whitelistRoles = [ // Roles by ID that are whitelisted.
     "333908428995035137"
 ]
+
+var blacklistRoles = [ // Roles by Id that are blacklisted.
+    "333908428995035137"
+]
+
 var notWhitelistedMessage = "You're Not Whitelisted. This sever is whitelisted and requires access to join."
 var noGuildMessage = "Guild Not Detected. It seems you're not in the guild for this community."
+var blacklistMessage = "You're blacklisted from this server."
 var debugMode = false
 
 /// Code ///
@@ -30,6 +36,12 @@ on('playerConnecting', (name, setKickReason, deferrals) => {
         }
         setTimeout(() => {
             if(identifierDiscord) {
+                exports['discordroles']['isRolePresent'](src, blacklistRoles, function(hasRole, roles) {
+                    if(hasRole) {
+                        deferrals.done(blacklistMessage);
+                        if(debugMode) console.log(`^5[DiscordWhitelist]^7 '${name}' with ID '${identifierDiscord.replace('discord:', '')}' is blacklisted to join this server.`)
+                    }
+                })
                 exports['discordroles']['isRolePresent'](src, whitelistRoles, function(hasRole, roles) {
                     if(!roles) {
                         deferrals.done(noGuildMessage)
