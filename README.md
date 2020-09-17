@@ -1,29 +1,22 @@
-**Discord Whitelist - By FAXES**
+### 📠 [Discord Whitelist][5mlink] 📠
 
-# Discord Help
-http://faxes.zone/discord
+[![Discord](https://faxes.zone/i/9wkr3.png)](https://faxes.zone/discord)
 
-**About**
-Hate updating those ACE Permission white-lists? Well just use Discord! Now you can thanks to this script, and @IllusiveTea's. So keep white lists easy and breezy. This script checks the connecting players Discord roles and checks whether they have the specified role.
+----
 
-<hr>
+Hate updating those ACE Permission white-lists? Well just use Discord! Now you can give thanks to this script, and @Illusivee’s. So keep white-lists easy and breezy. This script checks the connecting players Discord roles and checks whether they have the specified role.
 
-**Features**
-- Discord white-list based on users Discord roles
-- Live updates, so take the role away, they cant connect :stuck_out_tongue:
-- Nice and easy :tm: 
+**Documentation:**
+- [FAXES Documentation Site](https://docs.faxes.zone/docs)
+- [FAXES ACE Permission Documentation](https://docs.faxes.zone/docs/aceperms)
+- [Getting Your Steam Hexadecimal](https://docs.faxes.zone/docs/getting-your-steam-hex)
 
-**Requirements**
-@IllusiveTea's [Discord Role For Permission Script](https://forum.fivem.net/t/discord-roles-for-permissions-im-creative-i-know/233805) - **Ensure that it is the one from the master branch!**
+**Credits:**
+- FAXES
+- Astra
 
-**Installation**
-The installation page has moved to a better location - https://docs.faxes.zone/docs/discord-whitelist-setup/
+<br />
 
-Installation Video: https://youtu.be/SArIo8nUFG4
+[![FiveM](https://faxes.zone/i/r5byi.png)][5mlink]
 
-<hr>
-
-**Credits**
-@IllusiveTea for his creativeness within his script. 
-
-If you have any issues or comments please put them below. :left_speech_bubble:
+[5mlink]: https://forum.cfx.re/t/251333
