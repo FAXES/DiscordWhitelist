@@ -10,7 +10,7 @@ Hate updating those ACE Permission white-lists? Well just use Discord! Now you c
 - [Discord Whitelist Installation](https://docs.faxes.zone/c/fivem/discordwhitelist)
 - [FAXES Documentation Site](https://docs.faxes.zone)
 - [FAXES ACE Permission Documentation](https://docs.faxes.zone/c/fivem/aceperms)
-- [My Discord](https://faxes.zone/discord)
+- [Join my Discord](https://faxes.zone/discord)
 
 **Credits:**
 - FAXES
