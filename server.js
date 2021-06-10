@@ -42,7 +42,7 @@ async function getUserDiscord(source) {
 on('playerConnecting', async (name, setKickReason, deferrals) => {
     let src = global.source;
     deferrals.defer();
-    var userId = getUserDiscord(src);
+    var userId = await getUserDiscord(src);
 
     setTimeout(() => {
         deferrals.update(`Hello ${name}. Your Discord ID is being checked with our whitelist.`)
