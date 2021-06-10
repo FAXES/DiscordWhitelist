@@ -27,15 +27,19 @@ axios.defaults.headers = {
     'Content-Type': 'application/json',
     Authorization: `Bot ${botToken}`
 };
-function getUserDiscord(source) {
-    if(typeof source === 'string') return source;
-    if(!GetPlayerName(source)) return false;
-    for(let index = 0; index <= GetNumPlayerIdentifiers(source); index ++) {
-        if (GetPlayerIdentifier(source, index).indexOf('discord:') !== -1) return GetPlayerIdentifier(source, index).replace('discord:', '');
+async function getUserDiscord(source) {
+    try {
+        if(typeof source === 'string') return source;
+        if(!GetPlayerName(source)) return false;
+        for(let index = 0; index <= GetNumPlayerIdentifiers(source); index ++) {
+            if (GetPlayerIdentifier(source, index).indexOf('discord:') !== -1) return GetPlayerIdentifier(source, index).replace('discord:', '');
+        }
+    } catch(e) {
+        return false;
     }
     return false;
 }
-on('playerConnecting', (name, setKickReason, deferrals) => {
+on('playerConnecting', async (name, setKickReason, deferrals) => {
     let src = global.source;
     deferrals.defer();
     var userId = getUserDiscord(src);
