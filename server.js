@@ -46,8 +46,9 @@ axios.defaults.headers = {
 function getUserDiscord(source) {
     if(typeof source === 'string') return source;
     if(!GetPlayerName(source)) return false;
-    for(let index = 0; index <= GetNumPlayerIdentifiers(source); index ++) {
-        if (GetPlayerIdentifier(source, index).indexOf('discord:') !== -1) return GetPlayerIdentifier(source, index).replace('discord:', '');
+    for (let i = 0; i < GetNumPlayerIdentifiers(source); i++) {
+        const identifier = GetPlayerIdentifier(source, i);
+        if (identifier.includes('discord:')) return identifier.replace('discord:', '');
     }
     return false;
 }
