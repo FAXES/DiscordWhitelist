@@ -1,0 +1,20 @@
+{
+  "name": "discordwhitelist",
+  "version": "1.0.0",
+  "description": "[![Discord](https://faxes.zone/i/cx2ui4.png)](https://faxes.zone/discord)",
+  "main": "server.js",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "ms": "^2.1.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "faxes"
+  ],
+  "author": "FAXES",
+  "license": "ISC"
+}
