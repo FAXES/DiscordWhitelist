@@ -4,12 +4,14 @@
 
 ----
 
-Hate updating those ACE Permission white-lists? Well just use Discord! Now you can give thanks to this script, and @Illusivee’s. So keep white-lists easy and breezy. This script checks the connecting players Discord roles and checks whether they have the specified role.
+*Say hi to DiscordWhitelist, the number 1 whitelist resource for FiveM!*
+
+Hate updating those ACE Permission white-lists? Well just use Discord! DiscordWhitelist allows you to use a dynamic whitelist system based off of Discord roles. Simply change the configuration to best fit your community! So keep white-lists easy and breezy. Oh, also, we forgot to mention there's also a blacklisted roles system, just incase you prefer to blacklist users.
 
 **Documentation:**
 - [Discord Whitelist Installation](https://docs.faxes.zone/c/fivem/discordwhitelist)
 - [FAXES Documentation Site](https://docs.faxes.zone)
-- [FAXES ACE Permission Documentation](https://docs.faxes.zone/c/fivem/aceperms)
+- [FAXES Website](docs.faxes.zone)
 - [Join my Discord](https://faxes.zone/discord)
 
 **Credits:**
