@@ -130,10 +130,15 @@ on('playerConnecting', async (name, setKickReason, deferrals) => {
                                 Authorization: `Bot ${botToken}`
                             },
                         }).catch(async (err) => {
-                            console.error(JSON.stringify(err))
+                            if(debugMode) console.error(JSON.stringify(err))
                             if(debugMode) console.log(`[${version}] ^5${name} is not in the guild.^7`)
                             return deferrals.done(noGuildMessage);
                         });
+                        if(!resDis) {
+                            cache[userId] = {passed: 0,roles: null,timeAt: Date.now() + ms(cacheMaxTime)}
+                            if(debugMode) console.log(`[${version}] ^5Error in Discord call. Maybe consider extending the 'cacheMaxTime' option.^7`)
+                            return deferrals.done('There was an error checking your Discord Id. Please contact the server owner.');
+                        }
                         if(!resDis.data) {
                             cache[userId] = {passed: 0,roles: null,timeAt: Date.now() + ms(cacheMaxTime)}
                             if(debugMode) console.log(`[${version}] ^5${name} is not in the guild. Cache created^7`)
