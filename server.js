@@ -19,8 +19,8 @@ var blacklistRoles = [ // Roles by Id that are blacklisted.
 var notWhitelistedMessage = "You're Not Whitelisted. This sever is whitelisted and requires access to join.";
 var noGuildMessage = "Guild Not Detected. It seems you're not in the guild for this community.";
 var blacklistMessage = "You're blacklisted from this server.";
-var debugMode = false;
-var cacheMaxTime = "12h";
+var debugMode = false; // 
+var cacheMaxTime = "1h"; // This is the time it takes for refreshes (cache) to have to reload when fetching Discord roles.
 
 /// Code ///
 var work = true;
@@ -31,7 +31,7 @@ axios.defaults.baseURL = 'https://discord.com/api/v9';
 axios.defaults.headers = {
     
 };
-const version = '4.0'
+const version = '4.1.1'
 
 getUserDiscord = async function(source, callback) {
     if(typeof source == 'string') return source;
@@ -144,8 +144,8 @@ on('playerConnecting', async (name, setKickReason, deferrals) => {
                             if(debugMode) console.log(`[${version}] ^5${name} is not in the guild. Cache created^7`)
                             return deferrals.done(noGuildMessage);
                         }
-                        const hasRole = typeof whitelistRoles === 'string' ? resDis.data.roles.includes(whitelistRoles) : resDis.data.roles.some((cRole, i) => resDis.data.roles.includes(whitelistRoles[i]));
-                        const hasBlackRole = typeof blacklistRoles === 'string' ? resDis.data.roles.includes(blacklistRoles) : resDis.data.roles.some((cRole, i) => resDis.data.roles.includes(blacklistRoles[i]));
+                        const hasRole = resDis.data.roles.some((cRole, i) => resDis.data.roles.includes(whitelistRoles[i]));
+                        const hasBlackRole = resDis.data.roles.some((cRole, i) => resDis.data.roles.includes(blacklistRoles[i]));
                         if(hasBlackRole) {
                             cache[userId] = {passed: 3,roles: resDis.data.roles,timeAt: Date.now() + ms(cacheMaxTime)}
                             if(debugMode) console.log(`[${version}] ^5${name} is blacklisted. Cache created^7`)
@@ -206,7 +206,7 @@ exports('userHasRole', (src, roles) => {
                     if(!resDis.data) {
                         res(false)
                     }
-                    const hasRole = typeof roles === 'string' ? resDis.data.roles.includes(roles) : resDis.data.roles.some((cRole, i) => resDis.data.roles.includes(roles[i]));
+                    const hasRole = resDis.data.roles.some((cRole, i) => resDis.data.roles.includes(roles[i]));
                     if(hasRole) {
                         res(true)
                     } else {
