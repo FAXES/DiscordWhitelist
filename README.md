@@ -1,6 +1,7 @@
 ### 📠 [Discord Whitelist][5mlink] 📠
 
-[![Discord](https://faxes.zone/i/cx2ui4.png)](https://faxes.zone/discord)
+![Discord](https://raw.githubusercontent.com/FAXES/FAXES/master/light.png#gh-light-mode-only)
+![Discord](https://raw.githubusercontent.com/FAXES/FAXES/master/dark.png#gh-dark-mode-only)
 
 ----
 
