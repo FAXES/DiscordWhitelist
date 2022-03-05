@@ -130,7 +130,7 @@ on('playerConnecting', async (name, setKickReason, deferrals) => {
                                 Authorization: `Bot ${botToken}`
                             },
                         }).catch(async (err) => {
-                            if(debugMode) console.error(JSON.stringify(err))
+                            // if(debugMode) console.error(JSON.stringify(err))
                             if(debugMode) console.log(`[${version}] ^5${name} is not in the guild.^7`)
                             return deferrals.done(noGuildMessage);
                         });
