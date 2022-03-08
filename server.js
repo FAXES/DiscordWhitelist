@@ -144,8 +144,16 @@ on('playerConnecting', async (name, setKickReason, deferrals) => {
                             if(debugMode) console.log(`[${version}] ^5${name} is not in the guild. Cache created^7`)
                             return deferrals.done(noGuildMessage);
                         }
-                        const hasRole = await resDis.data.roles.some((cRole, i) => resDis.data.roles.includes(whitelistRoles[i]));
-                        const hasBlackRole = await resDis.data.roles.some((cRole, i) => resDis.data.roles.includes(blacklistRoles[i]));
+                        // const hasRole = await resDis.data.roles.some((cRole, i) => resDis.data.roles.includes(whitelistRoles[i]));
+                        // const hasBlackRole = await resDis.data.roles.some((cRole, i) => resDis.data.roles.includes(blacklistRoles[i]));
+                        let hasRole = false;
+                        let hasBlackRole = false;
+                        for (let i = 0; i < whitelistRoles.length; i++) {
+                            if (resDis.data.roles.includes(whitelistRoles[i])) hasRole = true;
+                        };
+                        for (let i = 0; i < blacklistRoles.length; i++) {
+                            if (resDis.data.roles.includes(blacklistRoles[i])) hasBlackRole = true;
+                        }
                         if(hasBlackRole) {
                             cache[userId] = {passed: 3,roles: resDis.data.roles,timeAt: Date.now() + ms(cacheMaxTime)}
                             if(debugMode) console.log(`[${version}] ^5${name} is blacklisted. Cache created^7`)
