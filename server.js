@@ -174,7 +174,7 @@ on('playerConnecting', async (name, setKickReason, deferrals) => {
                         return deferrals.done(notWhitelistedMessage);
                     }
                 } else {
-                    return deferrals.done(`Your Discord credentials were not detected. See this link for some tips to get it detected - https://docs.faxes.zone/c/fivem/debugging-discord`);
+                    return deferrals.done(`Your Discord credentials were not detected. See this link for some tips to get it detected - https://docs.weblutions.com/c/fivem/debugging-discord`);
                 }
             });
         }, 0)
