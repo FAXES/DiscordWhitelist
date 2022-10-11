@@ -4,7 +4,7 @@
   "description": "[![Discord](https://faxes.zone/i/cx2ui4.png)](https://faxes.zone/discord)",
   "main": "server.js",
   "dependencies": {
-    "axios": "^0.21.2",
+    "axios": "^0.21.3",
     "ms": "^2.1.3"
   },
   "devDependencies": {},
