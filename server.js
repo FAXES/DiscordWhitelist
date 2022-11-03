@@ -22,6 +22,11 @@ var blacklistMessage = "You're blacklisted from this server.";
 var debugMode = false; // 
 var cacheMaxTime = "1h"; // This is the time it takes for refreshes (cache) to have to reload when fetching Discord roles.
 
+// Time System //
+var enableTime = false; // allowed free-access but only for a certain time
+var hour_min = 5; // minimum time of access to the server
+var hour_max = 20; // maximum time of access to the server
+
 /// Code ///
 var work = true;
 var cache = {};
@@ -31,7 +36,7 @@ axios.defaults.baseURL = 'https://discord.com/api/v9';
 axios.defaults.headers = {
     
 };
-const version = '4.1.1'
+const version = '4.1.2'
 
 getUserDiscord = async function(source, callback) {
     if(typeof source == 'string') return source;
@@ -91,12 +96,10 @@ function checkCache(userId) {
         if(Date.now() > cache[userId].timeAt) { // cache expired
             return 2
         } else {
-            if(cache[userId].passed == 1) {
-                return 1
-            } else if(cache[userId].passed == 3) {
-                return 3
-            } else {
-                return 0
+            switch(cache[userId].passed){
+                case 1: return 1
+                case 3: return 3
+                default: return 0
             }
         }
     } else {
@@ -115,66 +118,72 @@ on('playerConnecting', async (name, setKickReason, deferrals) => {
             getUserDiscord(src, async function(userId) {
                 if(userId) {
                     let cacheCheck = await checkCache(userId);
-                    if(cacheCheck == 1) {
-                        if(debugMode) console.log(`[${version}] ^5${name} was allowed into the server^7`)
-                        return deferrals.done();
-                    } else if(cacheCheck == 3) {
-                        if(debugMode) console.log(`[${version}] ^5${name} is blacklisted from the server^7`)
-                        return deferrals.done(blacklistMessage);
-                    } else if(cacheCheck == 2) {
-                        let resDis = await axios({
-                            method: 'GET',
-                            url: `https://discord.com/api/v9/guilds/${guildId}/members/${userId}`,
-                            headers: {
-                                'Content-Type': 'application/json',
-                                Authorization: `Bot ${botToken}`
-                            },
-                        }).catch(async (err) => {
-                            // if(debugMode) console.error(JSON.stringify(err))
-                            if(debugMode) console.log(`[${version}] ^5${name} is not in the guild.^7`)
-                            return deferrals.done(noGuildMessage);
-                        });
-                        if(!resDis) {
-                            cache[userId] = {passed: 0,roles: null,timeAt: Date.now() + ms(cacheMaxTime)}
-                            if(debugMode) console.log(`[${version}] ^5Error in Discord call. Maybe consider extending the 'cacheMaxTime' option.^7`)
-                            return deferrals.done('There was an error checking your Discord Id. Please contact the server owner.');
-                        }
-                        if(!resDis.data) {
-                            cache[userId] = {passed: 0,roles: null,timeAt: Date.now() + ms(cacheMaxTime)}
-                            if(debugMode) console.log(`[${version}] ^5${name} is not in the guild. Cache created^7`)
-                            return deferrals.done(noGuildMessage);
-                        }
-                        let hasRole = false;
-                        let hasBlackRole = false;
-                        for (let i = 0; i < whitelistRoles.length; i++) {
-                            if (resDis.data.roles.includes(whitelistRoles[i])) hasRole = true;
-                        };
-                        for (let i = 0; i < blacklistRoles.length; i++) {
-                            if (resDis.data.roles.includes(blacklistRoles[i])) hasBlackRole = true;
-                        }
-                        if(hasBlackRole) {
-                            cache[userId] = {passed: 3,roles: resDis.data.roles,timeAt: Date.now() + ms(cacheMaxTime)}
-                            if(debugMode) console.log(`[${version}] ^5${name} is blacklisted. Cache created^7`)
-                            return deferrals.done(blacklistMessage);
-                        }
-                        if(hasRole) {
-                            cache[userId] = {passed: 1,roles: resDis.data.roles,timeAt: Date.now() + ms(cacheMaxTime)}
-                            if(debugMode) console.log(`[${version}] ^5${name} is whitelisted. Cache created^7`)
+                    switch(cacheCheck){
+                        case 0: 
+                            if(debugMode) console.log(`[${version}] ^5${name} is not whitelisted.^7`)
+                            return deferrals.done(notWhitelistedMessage);
+                        case 1:                         
+                            if(debugMode) console.log(`[${version}] ^5${name} was allowed into the server^7`)
                             return deferrals.done();
-                        } else {
-                            cache[userId] = {passed: 0,roles: resDis.data.roles,timeAt: Date.now() + ms(cacheMaxTime)}
-                            if(debugMode) { 
-                                console.log(`[${version}] ^5${name} is not whitelisted. Cache created^7`);
-                                console.log(`[${version}] ^5${name}s Roles: ^7`, resDis.data.roles);
+                        case 3 :
+                            if(debugMode) console.log(`[${version}] ^5${name} is blacklisted from the server^7`)
+                            return deferrals.done(blacklistMessage);
+                        case 2:
+                            let resDis = await axios({
+                                method: 'GET',
+                                url: `https://discord.com/api/v9/guilds/${guildId}/members/${userId}`,
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    Authorization: `Bot ${botToken}`
+                                },
+                            }).catch(async (err) => {
+                                // if(debugMode) console.error(JSON.stringify(err))
+                                if(debugMode) console.log(`[${version}] ^5${name} is not in the guild.^7`)
+                                return deferrals.done(noGuildMessage);
+                            });
+                            if(!resDis) {
+                                cache[userId] = {passed: 0,roles: null,timeAt: Date.now() + ms(cacheMaxTime)}
+                                if(debugMode) console.log(`[${version}] ^5Error in Discord call. Maybe consider extending the 'cacheMaxTime' option.^7`)
+                                return deferrals.done('There was an error checking your Discord Id. Please contact the server owner.');
                             }
-                            return deferrals.done(notWhitelistedMessage);              
-                        }
-                    } else if(cacheCheck == 0) {
-                        if(debugMode) console.log(`[${version}] ^5${name} is not whitelisted.^7`)
-                        return deferrals.done(notWhitelistedMessage);
+                            if(!resDis.data) {
+                                cache[userId] = {passed: 0,roles: null,timeAt: Date.now() + ms(cacheMaxTime)}
+                                if(debugMode) console.log(`[${version}] ^5${name} is not in the guild. Cache created^7`)
+                                return deferrals.done(noGuildMessage);
+                            }
+                            let hasRole = false;
+                            let hasBlackRole = false;
+                            for (let i = 0; i < whitelistRoles.length; i++) {
+                                if (resDis.data.roles.includes(whitelistRoles[i])) hasRole = true;
+                            };
+                            for (let i = 0; i < blacklistRoles.length; i++) {
+                                if (resDis.data.roles.includes(blacklistRoles[i])) hasBlackRole = true;
+                            }
+                            if(hasBlackRole) {
+                                cache[userId] = {passed: 3,roles: resDis.data.roles,timeAt: Date.now() + ms(cacheMaxTime)}
+                                if(debugMode) console.log(`[${version}] ^5${name} is blacklisted. Cache created^7`)
+                                return deferrals.done(blacklistMessage);
+                            }
+                            if(hasRole) {
+                                cache[userId] = {passed: 1,roles: resDis.data.roles,timeAt: Date.now() + ms(cacheMaxTime)}
+                                if(debugMode) console.log(`[${version}] ^5${name} is whitelisted. Cache created^7`)
+                                return deferrals.done();
+                            } else {
+                                let h = new Date().toLocaleTimeString('en-GB',{hour: 'numeric'});
+                                if(enableTime && h >= hour_min && h < hour_max){
+                                    cache[userId] = {passed: 1,roles: resDis.data.roles,timeAt: Date.now() + ms(cacheMaxTime)}
+                                    if(debugMode) console.log(`[${version}] ^5${name} is not whitelisted but passed with free-access. Cache created^7`)
+                                    return deferrals.done();
+                                } else {
+                                    cache[userId] = {passed: 0,roles: resDis.data.roles,timeAt: Date.now() + ms(cacheMaxTime)}
+                                    if(debugMode) { 
+                                        console.log(`[${version}] ^5${name} is not whitelisted. Cache created^7`);
+                                        console.log(`[${version}] ^5${name}s Roles: ^7`, resDis.data.roles);
+                                    }
+                                    return deferrals.done(notWhitelistedMessage);
+                                }              
+                            }
                     }
-                } else {
-                    return deferrals.done(`Your Discord credentials were not detected. See this link for some tips to get it detected - https://docs.weblutions.com/c/fivem/debugging-discord`);
                 }
             });
         }, 0)
