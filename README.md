@@ -8,6 +8,10 @@
       </picture>
 </a>
 
+> **IMPORTANT NOTICE:**
+> The free version of DiscordWhitelist is no longer supported or maintained. See the new version here:
+> https://weblutions.com/store/5m-discordwhitelist
+
 ----
 
 *Say hi to DiscordWhitelist, the number 1 whitelist resource for FiveM!*
