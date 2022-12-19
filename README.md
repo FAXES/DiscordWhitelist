@@ -1,3 +1,7 @@
+> **IMPORTANT NOTICE:**
+> The free version of DiscordWhitelist is no longer supported or maintained. See the new version here:
+> https://weblutions.com/store/5m-discordwhitelist
+
 ### 📠 [Discord Whitelist][5mlink] 📠
 
 <a href="https://discord.gg/faxes" target="_blank">
@@ -7,18 +11,6 @@
             <img alt="Discord Invite" src="https://api.weblutions.com/discord/invite/faxes">
       </picture>
 </a>
-
-> **IMPORTANT NOTICE:**
-> The free version of DiscordWhitelist is no longer supported or maintained. See the new version here:
-> https://weblutions.com/store/5m-discordwhitelist
-
-> **IMPORTANT NOTICE:**
-> The free version of DiscordWhitelist is no longer supported or maintained. See the new version here:
-> https://weblutions.com/store/5m-discordwhitelist
-
-> **IMPORTANT NOTICE:**
-> The free version of DiscordWhitelist is no longer supported or maintained. See the new version here:
-> https://weblutions.com/store/5m-discordwhitelist
 
 ----
 
