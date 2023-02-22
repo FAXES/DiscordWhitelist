@@ -27,6 +27,20 @@ var enableTime = false; // allowed free-access but only for a certain time
 var hour_min = 5; // minimum time of access to the server
 var hour_max = 20; // maximum time of access to the server
 
+// cmd //
+RegisterCommand('Whitelist',(source,args, raw) => {
+    if(source == 0){
+        switch(args[0]){
+            case 0: enableWhitelist = false;
+            case 1: enableWhitelist = true;
+            default: console.log("The argument is not valid please put 1 or 0");
+        }
+    } else {
+        emit('chat:addMessage',{
+            args: [`Only the console can execute this command`]
+        })
+    }
+})
 /// Code ///
 var work = true;
 var cache = {};
